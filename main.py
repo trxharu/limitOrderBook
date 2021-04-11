@@ -27,11 +27,9 @@ print(lob.getBBO())
 print("------------------------------------\n")
 # Adding some Market Orders
 mordr1 = Order("MKT", "BUY", 300)
-mordr2 = Order("MKT", "BUY", 100)
-mordr3 = Order("MKT", "SELL", 700)
+mordr2 = Order("MKT", "SELL", 500)
 
 lob.processOrder(mordr1)
 lob.processOrder(mordr2)
-lob.processOrder(mordr3)
 
 print(lob)
