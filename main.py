@@ -12,14 +12,14 @@ ordr2 = Order("LMT", "BUY", 100, 33.78)
 ordr3 = Order("LMT", "BUY", 500, 33.74)
 ordr6 = Order("LMT", "BUY", 200, 33.78)
 
-# ordr4 = Order("LMT", "SELL", 200, 33.78)
-# ordr5 = Order("LMT", "SELL", 500, 33.74)
+ordr4 = Order("LMT", "SELL", 200, 33.78)
+ordr5 = Order("LMT", "SELL", 500, 33.74)
 
 lob.processOrder(ordr1)
 lob.processOrder(ordr2)
 lob.processOrder(ordr3)
-# lob.processOrder(ordr4)
-# lob.processOrder(ordr5)
+lob.processOrder(ordr4)
+lob.processOrder(ordr5)
 lob.processOrder(ordr6)
 
 # printing order book
