@@ -38,6 +38,10 @@ class OrderBook:
             sys.exit(-1)
 
     def marketOrder(self, mktorder):
+        if mktorder.size < 0:
+            print("Error: Order size cannot be negative")
+            sys.exit(-1)
+
         if mktorder.direction == "BUY" and len(self.ask) != 0:
             mkt_order_size = mktorder.size
             while mkt_order_size > 0 and len(self.ask) != 0:
@@ -59,11 +63,16 @@ class OrderBook:
                 else:
                     mkt_order_size -= order.size
         else:
-            print("Error: Order Direction is invalid. Must be of (BUY or SELL)")
-            sys.exit(-1)
+            if len(self.bid) == 0 and mktorder.direction == "SELL":
+                print("There are no bids available")
+            elif len(self.ask) == 0 and mktorder.direction == "BUY":
+                print("There are no asks available")
+            else:
+                print("Error: Order Direction is invalid. Must be of (BUY or SELL)")
+                sys.exit(-1)
 
     def getBBO(self):
-        if not self.isEmpty():
+        if not (len(self.ask) == 0 or len(self.bid) == 0):
             return f"Bid/Ask - {self.bid[0].price}/{self.ask[0].price}\n"
         else:
             return "Order Book is empty"
