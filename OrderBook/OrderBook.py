@@ -2,7 +2,7 @@ import sys
 
 
 def getOrderKey(order):
-    return float(order.price)
+    return order.price
 
 
 class OrderBook:
@@ -20,6 +20,13 @@ class OrderBook:
             sys.exit(-1)
 
     def limitOrder(self, order):
+        if order.size < 0:
+            print("Error: Order size cannot be negative")
+            sys.exit(-1)
+        if order.price < 0:
+            print("Error: Order price cannot be negative")
+            sys.exit(-1)
+
         if order.direction == "BUY":
             self.bid.append(order)
             self.bid.sort(key=getOrderKey, reverse=True)
@@ -57,7 +64,7 @@ class OrderBook:
 
     def getBBO(self):
         if not self.isEmpty():
-            return f"Bid/Ask: {self.bid[0].price}/{self.ask[0].price}\n"
+            return f"Bid/Ask - {self.bid[0].price}/{self.ask[0].price}\n"
         else:
             return "Order Book is empty"
 
@@ -68,13 +75,13 @@ class OrderBook:
         if self.isEmpty():
             return "Order Book is Empty"
         else:
-            print_str = "Bid Size\tBid Price\n"
-            print_str += "--------------------\n"
+            print_str = "Time\tBidSize\tBidPrice\n"
+            print_str += "------------------------------\n"
             for order in self.bid:
-                print_str += f"{order.size}\t\t${order.price}\n"
+                print_str += f"{order.time}\t{order.size}\t\t${order.price}\n"
 
-            print_str += "\nAsk Size\tAsk Price\n"
-            print_str += "--------------------\n"
+            print_str += "\nTime\tAskSize\tAskPrice\n"
+            print_str += "------------------------------\n"
             for order in self.ask:
-                print_str += f"{order.size}\t\t${order.price}\n"
+                print_str += f"{order.time}\t{order.size}\t\t${order.price}\n"
             return print_str
